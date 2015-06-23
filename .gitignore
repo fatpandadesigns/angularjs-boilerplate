@@ -7,3 +7,4 @@ bower_components
 .idea
 *.iml
 target
+test-results.xml
