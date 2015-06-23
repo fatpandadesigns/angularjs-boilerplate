@@ -8,3 +8,5 @@ bower_components
 *.iml
 target
 test-results.xml
+npm-debug.log
+checkstyle.xml

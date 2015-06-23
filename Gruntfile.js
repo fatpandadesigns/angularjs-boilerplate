@@ -127,6 +127,17 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/scripts/{,*/}*.js'
         ]
       },
+      ci: {
+        options: {
+          jshintrc: '.jshintrc',
+          reporter: 'checkstyle',
+          reporterOutput: 'checkstyle.xml'
+        },
+        src: [
+          'Gruntfile.js',
+          '<%= yeoman.app %>/scripts/{,*/}*.js'
+        ]
+      },
       test: {
         options: {
           jshintrc: 'test/.jshintrc'
@@ -434,7 +445,7 @@ module.exports = function (grunt) {
       main: {
         options: {
           mode: 'tgz',
-          archive: "target/<%= yeoman.name %>-v<%= yeoman.version %>.tgz"
+          archive: 'target/<%= yeoman.name %>-v<%= yeoman.version %>.tgz'
         },
         files: [{
           expand: true,
@@ -494,6 +505,7 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('ci', [
+    'jshint:ci',
     'build',
     'karma:ci',
     'pkg'
