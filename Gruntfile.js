@@ -21,8 +21,11 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   // Configurable paths for the application
+  var bower = require('./bower.json');
   var appConfig = {
-    app: require('./bower.json').appPath || 'app',
+    app: bower.appPath || 'app',
+    name: bower.name,
+    version: bower.version,
     dist: 'dist'
   };
 
@@ -416,6 +419,29 @@ module.exports = function (grunt) {
       unit: {
         configFile: 'test/karma.conf.js',
         singleRun: true
+      },
+      ci: {
+        configFile: 'test/karma.conf.js',
+        singleRun: true,
+        browsers: ['PhantomJS'],
+        reporters: ['dots', 'junit'],
+        junitReporter: {
+          outputFile: 'test-results.xml'
+        }
+      }
+    },
+    compress: {
+      main: {
+        options: {
+          mode: 'tgz',
+          archive: "target/<%= yeoman.name %>-v<%= yeoman.version %>.tgz"
+        },
+        files: [{
+          expand: true,
+          src: '**/*',
+          cwd: 'dist/',
+          dot: true
+        }]
       }
     }
   });
@@ -461,6 +487,16 @@ module.exports = function (grunt) {
     'filerev',
     'usemin',
     'htmlmin'
+  ]);
+
+  grunt.registerTask('pkg', [
+    'compress:main'
+  ]);
+
+  grunt.registerTask('ci', [
+    'build',
+    'karma:ci',
+    'pkg'
   ]);
 
   grunt.registerTask('default', [

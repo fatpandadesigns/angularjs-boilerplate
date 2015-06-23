@@ -1,5 +1,5 @@
 {
-  "name": "iorad",
+  "name": "iorad-client",
   "version": "0.0.0",
   "dependencies": {},
   "repository": {},
@@ -9,6 +9,7 @@
     "grunt-concurrent": "^1.0.0",
     "grunt-contrib-clean": "^0.6.0",
     "grunt-contrib-compass": "^1.0.0",
+    "grunt-contrib-compress": "^0.13.0",
     "grunt-contrib-concat": "^0.5.0",
     "grunt-contrib-connect": "^0.9.0",
     "grunt-contrib-copy": "^0.7.0",
@@ -26,12 +27,12 @@
     "grunt-svgmin": "^2.0.0",
     "grunt-usemin": "^3.0.0",
     "grunt-wiredep": "^2.0.0",
+    "jit-grunt": "^0.9.1",
     "jshint-stylish": "^1.0.0",
     "karma-jasmine": "*",
     "karma-phantomjs-launcher": "*",
     "load-grunt-tasks": "^3.1.0",
-    "time-grunt": "^1.0.0",
-    "jit-grunt": "^0.9.1"
+    "time-grunt": "^1.0.0"
   },
   "engines": {
     "node": ">=0.10.0"
