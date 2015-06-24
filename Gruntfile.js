@@ -483,22 +483,42 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
-  grunt.registerTask('build', [
-    'clean:dist',
-    'wiredep',
-    'useminPrepare',
-    'concurrent:dist',
-    'autoprefixer',
-    'concat',
-    'ngAnnotate',
-    'copy:dist',
-    //'cdnify',
-    'cssmin',
-    'uglify',
-    'filerev',
-    'usemin',
-    'htmlmin'
-  ]);
+  grunt.registerTask('build', 'Compile the web app', function (target) {
+    //We want to build dist that do not minify resources, useful to verify and debug `dist`
+    if (target === 'dev') { //TODO(hoatle): support this: $ grunt build:dev
+      return grunt.task.run([
+        'clean:dist',
+        'wiredep',
+        'useminPrepare',
+        'concurrent:dist',
+        'autoprefixer',
+        'concat',
+        'ngAnnotate',
+        'copy:dist',
+        //'cssmin',
+        'filerev'
+        //'usemin'
+      ]);
+    }
+
+    return grunt.task.run([
+      'clean:dist',
+      'wiredep',
+      'useminPrepare',
+      'concurrent:dist',
+      'autoprefixer',
+      'concat',
+      'ngAnnotate',
+      'copy:dist',
+      'cdnify',
+      'cssmin',
+      'uglify',
+      'filerev',
+      'usemin'
+      //'htmlmin' //problem https://github.com/kangax/html-minifier/issues/345
+    ]);
+
+  });
 
   grunt.registerTask('pkg', [
     'compress:main'
