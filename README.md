@@ -28,7 +28,7 @@ Build & development
 - Run `grunt` for building and `grunt serve` for preview.
 
 
-- Use `$ yo angularjs:*` to generate controllers, directives, services, etc.
+- Use `$ yo angular:*` to generate routers, controllers, directives, services, etc.
 
 Test
 ----

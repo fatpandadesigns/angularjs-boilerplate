@@ -119,7 +119,8 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        force: true
       },
       all: {
         src: [
@@ -129,7 +130,6 @@ module.exports = function (grunt) {
       },
       ci: {
         options: {
-          jshintrc: '.jshintrc',
           reporter: 'checkstyle',
           reporterOutput: 'checkstyle.xml'
         },
