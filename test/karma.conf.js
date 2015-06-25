@@ -61,6 +61,8 @@ module.exports = function(config) {
     plugins: [
       "karma-phantomjs-launcher",
       "karma-jasmine",
+      "karma-mocha-reporter",
+      "karma-coverage",
       "karma-junit-reporter"
     ],
 

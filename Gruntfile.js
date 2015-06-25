@@ -21,6 +21,20 @@ module.exports = function (grunt) {
   require('time-grunt')(grunt);
 
   // Configurable paths for the application
+
+  function extend(target) {
+    var sources = [].slice.call(arguments, 1);
+    sources.forEach(function (source) {
+      for (var prop in source) {
+        if (source.hasOwnProperty(prop)) {
+          target[prop] = source[prop];
+        }
+      }
+    });
+    return target;
+  }
+
+
   var bower = require('./bower.json');
   var appConfig = {
     app: bower.appPath || 'app',
@@ -28,6 +42,9 @@ module.exports = function (grunt) {
     version: bower.version,
     dist: 'dist'
   };
+
+  var env = grunt.option('env') || 'dev';
+  var ngConfig = extend({}, require('./config/base.json'), require('./config/' + env + '.json'));
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -43,7 +60,7 @@ module.exports = function (grunt) {
       },
       js: {
         files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
-        tasks: ['newer:jshint:all'],
+        tasks: ['newer:jshint:all', 'template'],
         options: {
           livereload: '<%= connect.options.livereload %>',
           spawn: false
@@ -154,11 +171,21 @@ module.exports = function (grunt) {
           src: [
             '.tmp',
             '<%= yeoman.dist %>/{,*/}*',
-            '!<%= yeoman.dist %>/.git{,*/}*'
+            '!<%= yeoman.dist %>/.git{,*/}*',
+            'target'
           ]
         }]
       },
-      server: '.tmp'
+      server: '.tmp',
+      ci: {
+        files: [{
+          dot: true,
+          src: [
+          'coverage',
+          'checkstyle.xml',
+          'test-results.xml'
+        ]}
+      ]}
     },
 
     // Add vendor prefixed styles
@@ -374,6 +401,21 @@ module.exports = function (grunt) {
       }
     },
 
+    'template': {
+      'config': {
+        'options': {
+          data: ngConfig
+        },
+        'files': {
+          // The .tmp destination is a yeoman
+          // default location. Set this dest
+          // to fit your own needs if not using
+          // yeoman
+          '.tmp/scripts/services/config.js': ['app/scripts/services/config.tpl.js']
+        }
+      }
+    },
+
     // Copies remaining files to places other tasks can use
     copy: {
       dist: {
@@ -429,13 +471,33 @@ module.exports = function (grunt) {
     karma: {
       unit: {
         configFile: 'test/karma.conf.js',
-        singleRun: true
+        singleRun: true,
+        reporters: ['progress', 'mocha', 'coverage'],
+        preprocessors: {
+          // source files, that you wanna generate coverage for
+          // do not include tests or libraries
+          // (these files will be instrumented by Istanbul)
+          'app/scripts/**/*.js': ['coverage']
+        }
       },
       ci: {
         configFile: 'test/karma.conf.js',
         singleRun: true,
         browsers: ['PhantomJS'],
-        reporters: ['progress', 'dots', 'junit'],
+        reporters: ['progress', 'mocha', 'coverage', 'junit'],
+        preprocessors: {
+          // source files, that you wanna generate coverage for
+          // do not include tests or libraries
+          // (these files will be instrumented by Istanbul)
+          'app/scripts/**/*.js': ['coverage']
+        },
+        coverageReporter: {
+          dir : 'coverage/',
+          reporters: [
+            { type: 'html', subdir: '.' },
+            { type: 'cobertura', subdir: '.', file: 'cobertura.xml' }
+          ]
+        },
         junitReporter: {
           outputFile: 'test-results.xml'
         }
@@ -468,6 +530,7 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'autoprefixer:server',
+      'template',
       'connect:livereload',
       'watch'
     ]);
@@ -484,6 +547,9 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('build', 'Compile the web app', function (target) {
+
+    // $ grunt build --env=(dev|stage|test|prod)
+
     //We want to build dist that do not minify resources, useful to verify and debug `dist`
     if (target === 'dev') { //TODO(hoatle): support this: $ grunt build:dev
       return grunt.task.run([
@@ -492,6 +558,7 @@ module.exports = function (grunt) {
         'useminPrepare',
         'concurrent:dist',
         'autoprefixer',
+        'template',
         'concat',
         'ngAnnotate',
         'copy:dist',
@@ -507,6 +574,7 @@ module.exports = function (grunt) {
       'useminPrepare',
       'concurrent:dist',
       'autoprefixer',
+      'template',
       'concat',
       'ngAnnotate',
       'copy:dist',
@@ -526,6 +594,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('ci', [
     'jshint:ci',
+    'clean:ci',
     'build',
     'karma:ci',
     'pkg'
