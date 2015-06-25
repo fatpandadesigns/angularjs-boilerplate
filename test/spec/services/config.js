@@ -16,19 +16,24 @@ describe('Service: config', function () {
     expect(config.get).toBeDefined();
   });
 
-  it('get non exists', function () {
+  it('should get non exists', function () {
     expect(function() {
       config.get('nonExists');
     }).toThrowError('key: nonExists not exists');
   });
 
-  it('get defaultValue', function () {
+  it('should get defaultValue', function () {
     var value = config.get('nonExists', 'fallback');
     expect(value).toBe('fallback');
   });
 
-  it('get existing value', function () {
+  it('should get existing value', function () {
     expect(config.get('apiEndPoint')).toBe('<%= apiEndPoint %>');
+  });
+
+  it('should access by attribute', function () {
+    expect(config['apiEndPoint']).toBe('<%= apiEndPoint %>');
+    expect(config.apiEndPoint).toBe('<%= apiEndPoint %>');
   });
 
 });

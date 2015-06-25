@@ -26,17 +26,15 @@ angular.module('iorad')
      * @param key
      * @param defaultValue
      */
-    function get(key, defaultValue) {
-      if (options[key] !== undefined) {
-        return options[key];
+    options.get = function (key, defaultValue) {
+      if (this[key] !== undefined) {
+        return this[key];
       } else if (defaultValue !== undefined) {
         return defaultValue;
       } else {
         throw Error('key: ' + key + ' not exists');
       }
-    }
-
-    return {
-      get: get
     };
+
+    return options;
   })());
