@@ -578,7 +578,7 @@ module.exports = function (grunt) {
       'concat',
       'ngAnnotate',
       'copy:dist',
-      'cdnify',
+      //'cdnify', FIXME(hoatle): why angularjs 1.4.0-beta.2?
       'cssmin',
       'uglify',
       'filerev',
@@ -593,8 +593,8 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerTask('ci', [
-    'jshint:ci',
     'clean:ci',
+    'jshint:ci',
     'build',
     'karma:ci',
     'pkg'
