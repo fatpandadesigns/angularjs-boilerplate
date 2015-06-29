@@ -12,6 +12,7 @@ angular.module('iorad')
 
     // options are `$ grunt template` depending on the env grunt option
     var options = {
+      'env': '<%= env %>',
       'apiEndPoint': '<%= apiEndPoint %>'
     };
 

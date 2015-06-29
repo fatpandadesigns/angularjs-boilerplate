@@ -36,4 +36,9 @@ describe('Service: config', function () {
     expect(config.apiEndPoint).toBe('<%= apiEndPoint %>');
   });
 
+  it('should have attributes', function () {
+    expect(config.env).toBe('<%= env %>');
+    expect(config.apiEndPoint).toBe('<%= apiEndPoint %>');
+  });
+
 });

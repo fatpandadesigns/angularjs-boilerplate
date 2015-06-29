@@ -44,7 +44,7 @@ module.exports = function (grunt) {
   };
 
   var env = grunt.option('env') || 'dev';
-  var ngConfig = extend({}, require('./config/base.json'), require('./config/' + env + '.json'));
+  var ngConfig = extend({'env': env}, require('./config/base.json'), require('./config/' + env + '.json'));
 
   // Define the configuration for all the tasks
   grunt.initConfig({
@@ -548,7 +548,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', 'Compile the web app', function (target) {
 
-    // $ grunt build --env=(dev|stage|test|prod)
+    // $ grunt build --env=(dev|staging|test|prod)
 
     //We want to build dist that do not minify resources, useful to verify and debug `dist`
     if (target === 'dev') { //TODO(hoatle): support this: $ grunt build:dev
