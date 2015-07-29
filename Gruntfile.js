@@ -16,6 +16,7 @@ module.exports = function (grunt) {
     'cdnify': 'grunt-google-cdn'
   });
 
+  var modRewrite = require('connect-modrewrite');
 
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
@@ -59,7 +60,7 @@ module.exports = function (grunt) {
         tasks: ['wiredep']
       },
       js: {
-        files: ['<%= yeoman.app %>/scripts/{,*/}*.js'],
+        files: ['<%= yeoman.app %>/scripts/{,*/}*.js', 'config/*.json'],
         tasks: ['newer:jshint:all', 'template'],
         options: {
           livereload: '<%= connect.options.livereload %>',
@@ -102,6 +103,7 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
+              modRewrite(['^[^\\.]*$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/app/styles',
