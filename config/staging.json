@@ -1,3 +1,3 @@
 {
-  "apiEndPoint": "http://new-iorad-develop.terapp.com/api/v1.0/"
+  "apiEndPoint": "https://staging.example.com/api/v1.0"
 }
