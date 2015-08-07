@@ -1,7 +1,7 @@
-new-iorad-client
-================
+angularjs-boilerplate
+=====================
 
-new iorad client app to work with new-iorad backend REST services
+The starting point to start any new AngularJS applications.
 
 
 This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
