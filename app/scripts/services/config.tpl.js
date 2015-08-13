@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc service
- * @name iorad.config
+ * @name app.config
  * @description
  * # config
- * Constant in the iorad.
+ * Constant in the app.
  */
-angular.module('iorad')
+angular.module('app')
   .constant('config', (function() {
 
     // options are `$ grunt template` depending on the env grunt option

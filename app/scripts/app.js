@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name ioad
+ * @name app
  * @description
- * # iorad
+ * # app
  *
  * Main module of the application.
  */
 angular
-  .module('iorad', [
+  .module('app', [
     'ngAnimate',
     'ngCookies',
     'ngResource',

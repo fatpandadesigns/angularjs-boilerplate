@@ -1,5 +1,5 @@
 {
-  "name": "iorad-client",
+  "name": "angularjs-boilerplate",
   "version": "0.1.0-SNAPSHOT",
   "dependencies": {
     "angular": "^1.4.0",
@@ -15,5 +15,5 @@
     "angular-mocks": "^1.4.0"
   },
   "appPath": "app",
-  "moduleName": "iorad"
+  "moduleName": "app"
 }

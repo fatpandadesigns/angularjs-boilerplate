@@ -12,18 +12,31 @@ Build & Develop
 ---------------
 - Setup:
 
-  + Get iorad-dev running by following: http://dev.teracy.org/docs/getting_started.html
+  + Get `teracy-dev` running by following: http://dev.teracy.org/docs/getting_started.html
   + Clone this repo to `~/workspace/personal/angularjs-boilerplate`
   + Then:
 
-   ```
-   $ vagrant ssh
-   $ ws
-   $ cd personal/angularjs-boilerplate
+  ```
+  $ vagrant ssh
+  $ ws
+  $ cd personal/angularjs-boilerplate
+  ```
+
+  + Permissions workaround (will be fixed soon) and additional packages required:
+
+  ```
+  $ sudo chown `whoami` /home/vagrant/tmp -R
+  $ sudo chown `whoami` /home/vagrant/.npm/ -R
+  $ sudo npm install -g npm --upgrade
+  $ sudo apt-get install libfontconfig -y
+  ```
+
+  + Finally:
+
+  ```
    $ npm install
    $ bower install
-   $ bower update
-   ```
+  ```
 
 - Run `grunt` for building and `grunt serve` for preview.
 
@@ -32,7 +45,5 @@ Build & Develop
 
 Test
 ----
-
-`sudo apt-get install libfontconfig -y` first, then:
 
 Executing `grunt test` will run the unit tests with karma.

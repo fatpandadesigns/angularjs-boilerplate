@@ -3,7 +3,7 @@
 describe('Service: config', function () {
 
   // load the service's module
-  beforeEach(module('iorad'));
+  beforeEach(module('app'));
 
   // instantiate service
   var config;
@@ -31,10 +31,6 @@ describe('Service: config', function () {
     expect(config.get('apiEndPoint')).toBe('<%= apiEndPoint %>');
   });
 
-  it('should access by attribute', function () {
-    expect(config['apiEndPoint']).toBe('<%= apiEndPoint %>');
-    expect(config.apiEndPoint).toBe('<%= apiEndPoint %>');
-  });
 
   it('should have attributes', function () {
     expect(config.env).toBe('<%= env %>');
